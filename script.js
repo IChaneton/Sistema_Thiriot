@@ -48,14 +48,23 @@ const boton_desencriptar = document.getElementById('boton_desencriptar');
 let frase_encriptada = "";
 frase_text.textContent = frase;
 
+clave_in.addEventListener('keydown', handleInput);
+clave_out.addEventListener('keydown', handleInput);
 
+
+function handleInput(e){
+    if(!e.key.match(/^[a-zA-Z]*$/))
+    {
+        e.preventDefault();
+    }
+};
 
 
 boton_encriptar.onclick = function(e){
     clave = clave_in.value;
     const clave_string = getClaveString(clave, frase);
     frase_encriptada = getEncryptedFrase(clave_string, frase);
-    frase_encriptada_text.textContent = frase_encriptada;
+    frase_encriptada_text.textContent = `Frase Encriptada: "${capitalizeFirst(frase_encriptada)}"`;
     clave_out.value = "";
     frase_desencriptada_text.textContent = "";
 };
@@ -63,7 +72,7 @@ boton_desencriptar.onclick = function(e){
     clave = clave_out.value;
     const clave_string = getClaveString(clave, frase_encriptada);
     const frase_desencriptada = getEncryptedFrase(clave_string, frase_encriptada);
-    frase_desencriptada_text.textContent = capitalizeFirst(frase_desencriptada);
+    frase_desencriptada_text.textContent = `Frase Desencriptada: "${capitalizeFirst(frase_desencriptada)}"`;
 
 };
 
