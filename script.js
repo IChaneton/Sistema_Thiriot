@@ -36,7 +36,9 @@ console.log("PRUEBAS");
 
 //Captura elementos
 let clave = "";
+const sistema_optimizado_checkbox = document.getElementById("sistema_optimizado_check");
 const frase_text = document.getElementById('frase');
+const clave_string_text = document.getElementById('clave_string')
 const clave_in = document.getElementById("clave_in");
 const clave_out = document.getElementById("clave_out");
 const frase = "La mar estaba serena.";
@@ -63,6 +65,7 @@ function handleInput(e){
 boton_encriptar.onclick = function(e){
     clave = clave_in.value;
     const clave_string = getClaveString(clave, frase);
+    clave_string_text.textContent = clave_string;
     frase_encriptada = getEncryptedFrase(clave_string, frase);
     frase_encriptada_text.textContent = `Frase Encriptada: "${capitalizeFirst(frase_encriptada)}"`;
     clave_out.value = "";
@@ -81,6 +84,7 @@ console.log("La frase es: " + frase)
 
 //FUNCION GENERAR STRING DE CLAVE CONTINUA CORRESPONDIENTE A FRASE
 function getClaveString(clave, frase){
+    console.log(sistema_optimizado_checkbox.checked);
     let clave_string = "";
     let clave_index = 0;
     for(let i = 0; i < frase.length; i++ ){
@@ -91,7 +95,10 @@ function getClaveString(clave, frase){
             clave_index ++
         }else{
             clave_char = frase_char;
-            clave_index = 0;
+            if(sistema_optimizado_checkbox.checked){
+                clave_index = 0;
+            }
+            
         };
         clave_string += clave_char;
     };
